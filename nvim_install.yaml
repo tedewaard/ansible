@@ -1,0 +1,29 @@
+- name: Install NeoVim and Configs
+  hosts: localhost
+  become: true
+ 
+  tasks:
+
+    - name: Install make 
+      ansible.builtin.apt:
+        pkg:
+          - ninja-build
+          - gettext
+          - cmake
+          - unzip
+          - curl
+        state: latest
+
+    - name: Clone NeoVim source files
+      git:
+        repo: git clone https://github.com/neovim/NeoVim
+        dest: /home/tedewaard/
+        clone: yes
+        update: yes
+
+    - name: Install NeoVim
+      shell: |
+        cd /home/tedewaard/neovim && make CMAKE_BUILD_TYPE=RelWithDebInfo
+        sudo make install
+ 
+
