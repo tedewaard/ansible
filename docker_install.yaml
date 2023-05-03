@@ -1,0 +1,40 @@
+- name: Install Docker 
+  hosts: localhost
+  become: true
+
+  tasks:
+
+    - name: Install Docker pre packages
+      ansible.builtin.apt:
+        pkg:
+          - curl
+          - ca-certificates
+          - gnupg
+          - apt-transport-https
+          - python3-pip
+          - virtualenv
+          - python3-setuptools
+          - software-properties-common
+        state: latest
+        update_cache: yes
+
+
+    - name: Add Docker GPG apt Key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add Docker Repository
+      apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu focal stable
+        state: present
+
+    - name: Update apt and install docker-ce
+      apt:
+        name: docker-ce
+        state: latest
+        update_cache: true
+
+    - name: Install Docker Module for Python
+      pip:
+        name: docker
