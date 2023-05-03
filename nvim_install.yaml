@@ -4,7 +4,7 @@
  
   tasks:
 
-    - name: Install make 
+    - name: Install prerequisits 
       ansible.builtin.apt:
         pkg:
           - ninja-build
@@ -16,7 +16,7 @@
 
     - name: Clone NeoVim source files
       git:
-        repo: git clone https://github.com/neovim/NeoVim
+        repo: https://github.com/neovim/NeoVim
         dest: /home/tedewaard/
         clone: yes
         update: yes
