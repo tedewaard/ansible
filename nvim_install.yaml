@@ -17,13 +17,13 @@
     - name: Clone NeoVim source files
       git:
         repo: https://github.com/neovim/NeoVim
-        dest: /home/tedewaard/
+        dest: /home/tedewaard/neovim/
         clone: yes
         update: yes
 
     - name: Install NeoVim
       shell: |
         cd /home/tedewaard/neovim && make CMAKE_BUILD_TYPE=RelWithDebInfo
-        sudo make install
+        make install
  
 
