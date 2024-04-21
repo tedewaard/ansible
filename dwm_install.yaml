@@ -1,0 +1,31 @@
+- name: Install DWM 
+  hosts: localhost
+  become: true
+  tasks:
+
+    - name: Install prerequisits
+      ansible.builtin.apt:
+        pkg:
+          - make 
+          - libx11-dev
+          - libxft-dev 
+          - libxinerama-dev
+          - xorg 
+          - gcc 
+          - dmenu 
+          - compton 
+          - feh 
+
+    - name: Clone DWM source files
+      git:
+        repo: git@github.com:tedewaard/dwm.git 
+        dest: /home/tedewaard/dwm/
+        single_branch: yes
+        version: patched
+
+    - name: Install DWM 
+      shell: |
+        cd /home/tedewaard/dwm 
+        rm config.h
+        make
+        make clean install
