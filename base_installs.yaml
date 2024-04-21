@@ -3,8 +3,20 @@
   become: true
   tasks:
 
-    - name: Install packages
+    - name: Install base packages
       ansible.builtin.apt:
+        update_cache: true
         pkg:
           - tldr 
           - tmux
+
+
+    - name: Install NVM 0.39.7
+      get_url:
+        url: https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh
+        dest: /tmp/install.sh
+      
+      ansible.builtin.script: /tmp/install.sh
+
+    - name: Install node v20.x LTS using NVM
+      command: nvm install 20
