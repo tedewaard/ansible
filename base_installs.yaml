@@ -11,13 +11,15 @@
           - tmux
 
 
-    - name: Get NVM 0.39.7 install script
+    - name: Get NodeJS 20.x Deb package
       get_url:
-        url: https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh
-        dest: /tmp/install.sh
+        url: https://deb.nodesource.com/setup_20.x 
+        dest: /tmp/setup_20.x
       
-    - name: Install NVM 0.39.7
-      ansible.builtin.script: /tmp/install.sh
+    - name: Run Node setup 
+      ansible.builtin.script: /tmp/setup_20.x
 
-    - name: Install node v20.x LTS using NVM
-      command: nvm install 20
+    - name: Install node v20.x LTS
+      ansible.builtin.apt:
+        pgk:
+          - nodejs
