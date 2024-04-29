@@ -1,4 +1,4 @@
-- name: Install base packages 
+- name: Install base packages
   hosts: localhost
   become: true
   tasks:
@@ -7,16 +7,20 @@
       ansible.builtin.apt:
         update_cache: true
         pkg:
-          - tldr 
+          - tldr
+          - tmux
+          - xclip
+          - neofetch
+          - tree
           - tmux
 
 
     - name: Get NodeJS 20.x Deb package
-      get_url:
-        url: https://deb.nodesource.com/setup_20.x 
+      ansible.builtin.get_url:
+        url: https://deb.nodesource.com/setup_20.x
         dest: /tmp/setup_20.x
-      
-    - name: Run Node setup 
+
+    - name: Run Node setup
       ansible.builtin.script: /tmp/setup_20.x
 
     - name: Install node v20.x LTS
