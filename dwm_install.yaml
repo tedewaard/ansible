@@ -1,9 +1,9 @@
 - name: Install DWM 
   hosts: localhost
-  become: true
   tasks:
 
     - name: Install prerequisits
+      become: true
       ansible.builtin.apt:
         pkg:
           - make 
@@ -24,6 +24,7 @@
         version: patched
 
     - name: Install DWM 
+      become: true
       shell: |
         cd /home/tedewaard/dwm 
         rm config.h
