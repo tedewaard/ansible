@@ -1,0 +1,16 @@
+- name: Install TMUX 
+  hosts: localhost
+  tasks:
+
+    - name: Install prerequisits
+      become: true
+      ansible.builtin.apt:
+        pkg:
+          - tmux 
+
+    - name: Clone TMUX Plugin Manager 
+      git:
+        repo: https://github.com/tmux-plugins/tpm 
+        dest: /home/tedewaard/.tmux/plugins/tpm
+        clone: true
+        update: true
