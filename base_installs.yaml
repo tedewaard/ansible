@@ -13,6 +13,8 @@
           - neofetch
           - tree
           - tmux
+          - zsh
+          - fzf
 
 
     - name: Get NodeJS 20.x Deb package

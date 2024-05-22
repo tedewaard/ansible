@@ -1,0 +1,15 @@
+- name: Install ZSH 
+  hosts: localhost
+  tasks:
+
+    - name: Install prerequisits
+      become: true
+      ansible.builtin.apt:
+        pkg:
+          - zsh 
+
+    - name: Install oh-my-zsh 
+
+
+
+    - name: Symlink .zshrc 
