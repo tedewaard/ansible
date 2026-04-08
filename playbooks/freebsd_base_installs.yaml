@@ -1,0 +1,27 @@
+- name: Install base packages for FreeBSD
+  hosts: localhost
+  become: true
+  tasks:
+
+    - name: Update package repository
+      community.general.pkgng:
+        update_cache: true
+
+    - name: Install base packages
+      community.general.pkgng:
+        name:
+          - tldr
+          - tmux
+          - xclip
+          - neofetch
+          - tree
+          - zsh
+          - fzf
+          - neovim
+          - curl
+          - bash
+          - wget
+          - sudo
+          - htop
+          - lsblk
+        state: present

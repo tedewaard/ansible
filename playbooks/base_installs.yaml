@@ -1,0 +1,71 @@
+- name: Install base packages
+  hosts: localhost
+  become: true
+  gather_facts: true
+  tasks:
+
+    - name: Install base packages (Debian/Ubuntu)
+      ansible.builtin.apt:
+        update_cache: true
+        pkg:
+          - tldr
+          - tmux
+          - xclip
+          - neofetch
+          - tree
+          - zsh
+          - fzf
+          - neovim
+          - curl
+          - bash
+          - wget
+          - sudo
+          - htop
+          - traceroute
+          - iputils-ping
+          - tcpdump
+          - net-tools
+        state: present
+      when: ansible_facts['os_family'] == 'Debian'
+
+    - name: Update package repository (FreeBSD)
+      community.general.pkgng:
+        update_cache: true
+      when: ansible_facts['os_family'] == 'FreeBSD'
+
+    - name: Install base packages (FreeBSD)
+      community.general.pkgng:
+        name:
+          - tldr
+          - tmux
+          - xclip
+          - neofetch
+          - tree
+          - zsh
+          - fzf
+          - neovim
+          - curl
+          - bash
+          - wget
+          - sudo
+          - htop
+          - lsblk
+        state: present
+      when: ansible_facts['os_family'] == 'FreeBSD'
+
+    - name: Get NodeJS 20.x Deb package (Debian/Ubuntu only)
+      ansible.builtin.get_url:
+        url: https://deb.nodesource.com/setup_20.x
+        dest: /tmp/setup_20.x
+      when: ansible_facts['os_family'] == 'Debian'
+
+    - name: Run Node setup (Debian/Ubuntu only)
+      ansible.builtin.script: /tmp/setup_20.x
+      when: ansible_facts['os_family'] == 'Debian'
+
+    - name: Install node v20.x LTS (Debian/Ubuntu only)
+      ansible.builtin.apt:
+        pkg:
+          - nodejs
+        state: present
+      when: ansible_facts['os_family'] == 'Debian'
