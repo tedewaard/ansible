@@ -25,13 +25,9 @@
           - iputils-ping
           - tcpdump
           - net-tools
+          - ripgrep
         state: present
       when: ansible_facts['os_family'] == 'Debian'
-
-    - name: Update package repository (FreeBSD)
-      community.general.pkgng:
-        update_cache: true
-      when: ansible_facts['os_family'] == 'FreeBSD'
 
     - name: Install base packages (FreeBSD)
       community.general.pkgng:
@@ -50,7 +46,8 @@
           - sudo
           - htop
           - lsblk
-        state: present
+          - ripgrep
+        state: latest
       when: ansible_facts['os_family'] == 'FreeBSD'
 
     - name: Get NodeJS 20.x Deb package (Debian/Ubuntu only)
